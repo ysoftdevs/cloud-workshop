@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        
+        <script type="text/javascript">
+            /* global $ */
+            
+            var czechWords = [ "dům", "auto", "slovo", "škola", "den", "strom", "sopka"];
+            var englishWords = [ "house", "car", "word", "school", "day", "tree", "vulcan"];
+            var primaryWordIndex = 0;
+            var secondaryWord = "";
+            
+            function buttonClickHandler(event) {
+                var message;
+                if (event.target.textContent == secondaryWord) {
+                    message = "Congratulation! Correct answer.";
+                    $("#statusIcon").addClass("glyphicon-ok").removeClass("glyphicon-remove");
+                } else {
+                    message = "Incorrect answer. Try again.";
+                    $("#statusIcon").addClass("glyphicon-remove").removeClass("glyphicon-ok");
+                }
+                $("#status").text(message);
+            }
+
+            function documentReady() {
+                $(".btn").click(buttonClickHandler);
+                primaryWordIndex = Math.floor(Math.random() * englishWords.length);
+                $("#primaryWord").text(englishWords[primaryWordIndex]);
+                secondaryWord = czechWords[primaryWordIndex];
+            }
+        
+            $( document ).ready(documentReady);
+        </script>
+        
+    </head>
+    <body>
+        <h1>Word catcher</h1>
+        <div id="primaryWord">word</div>
+        <div>
+            <button type="button" class="btn btn-default">dům</button>
+            <button type="button" class="btn btn-default">auto</button>
+            <button type="button" class="btn btn-default">slovo</button>
+            <button type="button" class="btn btn-default">škola</button>
+        </div> 
+        <div>
+            <span id="statusIcon" class="glyphicon" ></span>
+            <span id="status">...select word...</span>
+        </div>
+    </body>
+</html>
